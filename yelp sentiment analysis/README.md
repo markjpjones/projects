@@ -1,3 +1,6 @@
+# Predicting the Sentiment of Yelp reviews
+
+
 ## Abstract (tl;dr:)
 
 Five-week final project for my General Assmebly immersive programmed. Project involved using the [Yelp dataset](https://www.yelp.com/dataset/documentation/main) to classify restaurant reviews as positive or negative based on their content. I used a number of different natural language processing (NLP) techniques including, stemming, count vectorising and term frequency - indirect document frequency (TFIDF), along with Logistic Regression modelling. The result was an extremely accurate model (accuracy and recall scores of 0.95) which I could then use to analyse reviews from individual restaurants to understand what aspects matter most to people. 
@@ -39,9 +42,9 @@ The data is stored as five JSON files that provide details of businesses, users,
 
 Provides information about the businesses being reviewed on Yelp. 
 
-```json
+```
 {
-    -- string, 22 character unique string business id
+    // string, 22 character unique string business id
     "business_id": "tnhfDv5Il8EaGSXZGiuQGg",
 
     // string, the business's name
@@ -112,7 +115,7 @@ Provides information about the businesses being reviewed on Yelp.
 
 Provides information on the users who write reviews about businesses.
 
-```json
+```
 {
     // string, 22 character unique user id, maps to the user in user.json
     "user_id": "Ha3iJu77CxlrFm-vQRs_8g",
@@ -195,7 +198,7 @@ Provides information on the users who write reviews about businesses.
 
 Contains the reviews written by users about businesses. Only the reviews that were recommended by Yelp at the time of data collection are included. 
 
-```json
+```
 {
     // string, 22 character unique review id
     "review_id": "zdSx_SD6obEhz9VrW9uAWA",
@@ -232,7 +235,7 @@ Contains the reviews written by users about businesses. Only the reviews that we
 
 Recommendations provided by users about businesses. Tips are shorter than reviews and tend to convey quick suggestions. For example, what secret menus to ask for, etc..
 
-```json
+```
 {
     // string, text of the tip
     "text": "Secret menu - fried chicken sando is da bombbbbbb Their zapatos are good too.",
@@ -257,7 +260,7 @@ Recommendations provided by users about businesses. Tips are shorter than review
 
 For each business, a list of user check-ins that have occurred.
 
-```json
+```
 {
     // string, 22 character business id, maps to business in business.json
     "business_id": "tnhfDv5Il8EaGSXZGiuQGg"
