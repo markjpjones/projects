@@ -36,7 +36,9 @@ The business contained in the datset reside in **10** metropolitan areas in Nort
 
 The data is stored as five JSON files that provide details of businesses, users, reviews, tips and check-ins. The following diagram  shows how the different sets of data are related, with a description of each provided afterwards. 
 
-<img src="README.assets/er diagram.png" alt="Untitled drawing" style="zoom:75%;" />
+<p align="center">
+	<img src="README.assets/er diagram.png" alt="Untitled drawing" style="zoom:75%;" />
+</p>
 
 ### **Business**
 
@@ -290,7 +292,9 @@ As my goal for the project was to help restaurants better understand their revie
 
 As I am only interested in resturant reviews it makes sense to exclude reviews for businesses that are not restaurants. Yelp allows businesses to be categorised quite broadly (and businesses are allowed to have more than category). In this regard the categories are more like tags. Yelp has 1,337 keywords for descrbing/categorizing businesses. The most popular tags are shown below.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone - Yelp.assets/Screen Shot 2020-07-31 at 3.03.15 PM.png" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/business tags.png" height="450" width="200"/>
+</p>
 
 Excluding non-resturants businessses from my dataset caused the number of businesses to drop from ~209K to ~63K (a 60% drop), and a subsequent ~38% reduction in the with the number of reivews being considered. 
 
@@ -323,7 +327,9 @@ With business (and review) data now filtered to only those for resturants. I nex
 
 Looking at the number of words in a reivew makes it hard to pinpoint any potential issues as a one or two word review is perfectly legitimate, and would provide feedback on sentiment. Therefore, a better approach is to look at the number of characters. When filtering reviews to look at only those with less tahn 5 characters we get 68 results. A summary of the most popular is shown below. As we can see these reviews would not be helpful when predicting sentiment. As a result, I will remove them.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone - Yelp.assets/Screen Shot 2020-08-02 at 11.00.50 AM.png" alt="Screen Shot 2020-08-02 at 11.00.50 AM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/invalid characters.png" height="350" width="200"/>
+</p>
 
 Next, I looked for reviews that did not contain alphabetical charcters. The result was 650 reviews, which were written in Chinese/Japanese. These reviews were also excluded.
 
@@ -373,11 +379,15 @@ Reviews can obviously be written in any language. For the purposes of this proje
 
 I used the [langdetect](https://pypi.org/project/langdetect/) library to predict the language of each restaurant review and obtained the following results. Langdetect classified 99% as being in English.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-07 at 10.00.15 AM.png" alt="Screen Shot 2020-09-07 at 10.00.15 AM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/english reviews.png" height="75" width="200"/>
+</p>
 
 In order to have confidence that these classifications were correct it was necessary to also review the probabilties related to the predictions. High probailitiles would mean that langdetect was extremely confident in it's lagnuage predictions. Below is a breakdown of the probabilites where only one language detected (which was the case for 99% of the reviews). We can see that in almost every case langdetect had a high degree of confidence as to the language.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-07 at 10.58.03 AM.png" alt="Screen Shot 2020-09-07 at 10.58.03 AM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/language confidence.png" height="300" width="200"/>
+</p>
 
 In the remaining 1% of cases, multiple languages were detected. Most were still categorised as english and a cursory scan of these reviews indicated that the classified seemed to be correct. I was not worried if a few reviews were classified incorrectly as the number was so small when compared to the majority (99%) case above.. 
 
