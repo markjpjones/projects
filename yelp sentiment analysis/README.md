@@ -41,7 +41,7 @@ Provides information about the businesses being reviewed on Yelp.
 
 ```json
 {
-    // string, 22 character unique string business id
+    -- string, 22 character unique string business id
     "business_id": "tnhfDv5Il8EaGSXZGiuQGg",
 
     // string, the business's name
