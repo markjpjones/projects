@@ -5,6 +5,8 @@
 
 Five-week final project for my General Assmebly immersive programmed. Project involved using the [Yelp dataset](https://www.yelp.com/dataset/documentation/main) to classify restaurant reviews as positive or negative based on their content. I used a number of different natural language processing (NLP) techniques including, stemming, count vectorising and term frequency - indirect document frequency (TFIDF), along with Logistic Regression modelling. The result was an extremely accurate model (accuracy and recall scores of 0.95) which I could then use to analyse reviews from individual restaurants to understand what aspects matter most to people. 
 
+The code for this project can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb).
+
 
 
 ## Project Overview
@@ -282,7 +284,7 @@ When starting this project, the biggest challenge I faced was the size of the js
 
 ### Data Loading & Exploration
 
-Given the dataset was too large to work with directly in Pandas, I chose to upload it to a Postgres database to work with. I did this by first splitting the json files into smaller junks and then iteratively loading these smaller chunks into a Pandas Dataframe, which I could then write to Postgres. I created one table in Postgres for each json file (business, reviews, tips, check-ins, users). [This article](https://blog.softhints.com/python-read-huge-json-file-pandas/) provides an excellent overview on the approach I took for chunking and loading the JSON files. The code I created for loading data into a Dataframe and then out to Postgres can be found [here](http://localhost:8888/lab/tree/project-capstone/Capstone%20-%20Yelp.ipynb#data_loading). **<< Need to fix this link**
+Given the dataset was too large to work with directly in Pandas, I chose to upload it to a Postgres database to work with. I did this by first splitting the json files into smaller junks and then iteratively loading these smaller chunks into a Pandas Dataframe, which I could then write to Postgres. I created one table in Postgres for each json file (business, reviews, tips, check-ins, users). [This article](https://blog.softhints.com/python-read-huge-json-file-pandas/) provides an excellent overview on the approach I took for chunking and loading the JSON files. The code I created for loading data into a Dataframe and then out to Postgres can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb#Data-Loading-(JSONs)-).
 
 As my goal for the project was to help restaurants better understand their reviews I chose to focus on using business and review information exclusively. During the data exploration my aim was to ensure that I had quality data to use for modelling. I split my exploration into five stages. Each of which I will now describe.
 
@@ -356,7 +358,7 @@ The code I used for detecting the language for reviews (and uplaoding the result
 
 Having filtered the dataset to only include resturant reviews written in English, I now need an effective method of sampling.  I chose to sample the data using Postgres' [TABLESAMPLE](https://www.postgresql.org/docs/current/sql-select.html#SQL-FROM) method, which I found extremely performant. As my model had to predict the senitnment of a review (ie., positive or negative), I chose to sample from one, two, four and five star reviews only.  Three star reviews were not included as they would not give a strong indication of sentiment (in most cases). Finally, to ensure my model was good at predicting both good and bad sentiment, I sampled equally from each of the star ratings mentioned previously. 
 
-The SQL code I wrote for sampling my dataset can be found **here**. **<< NEEDS TO BE ADDED**
+The SQL code I wrote for sampling my dataset can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb#1.-Load-sample-data-into-a-dataframe).
 
 
 
@@ -376,7 +378,7 @@ To create the features necessary for modelling I constructed a pipeline consitin
 
 I chose to use stemming as I wanted to ensure variations of the same/similar words would be grouped together by their root. For example, the three words - agreed, agreeing and agreeable have the same root word agree. A search involving any of these words should treat them as the same word which is the root word. I also considered extending this idea to use lemmatization instead. However, I did not explore this at the time but instead left it with a view to returning to explore it at a later date.
 
-The code for the first stage of my pipeline can be found **here**. **<< NEEDS TO BE ADDED** 
+The code for the first stage of my pipeline can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb#2.-Setup-Pipeline). 
 
 
 
@@ -412,7 +414,7 @@ pipe_test = Pipeline([
 
 In addition to testing how the above parameters impacted a model's performance, I also wanted to see what impact varying the sample size had. I did this by iterating through the `test_combos` list (containing the chosen pipeline parameters) for each sample size I wanted to test. At each stage I recorded the number of features that were created, along with the accuracy and recall scores for the model. I kept the test set the same throughout (to ensure a like for like comparison), while varying the training data by the size of the sample.
 
- The full code for this for loop can be found **here**. **<< NEED TO ADD THIS**
+ The full code for this for loop can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb#3.-Identify-optimal-settings-for-Count-Vecotorizing-&-TFIDF).
 
 The best performing settings are shown below. I tested four sample sizes - 400, 4000, 20,000 and 28,000. With the test set remaing the same throughout (20,000). 
 
