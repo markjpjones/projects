@@ -37,7 +37,7 @@ The business contained in the datset reside in **10** metropolitan areas in Nort
 The data is stored as five JSON files that provide details of businesses, users, reviews, tips and check-ins. The following diagram  shows how the different sets of data are related, with a description of each provided afterwards. 
 
 <p align="center">
-	<img src="README.assets/er diagram.png" alt="Entity Relationship diagram" style="zoom:75%;" />
+	<img src="README.assets/er diagram.png" alt="Entity Relationship diagram" height="500" width="800" />
 </p>
 
 ### **Business**
