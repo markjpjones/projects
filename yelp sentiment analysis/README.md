@@ -37,7 +37,7 @@ The business contained in the datset reside in **10** metropolitan areas in Nort
 The data is stored as five JSON files that provide details of businesses, users, reviews, tips and check-ins. The following diagram  shows how the different sets of data are related, with a description of each provided afterwards. 
 
 <p align="center">
-	<img src="README.assets/er diagram.png" alt="Untitled drawing" style="zoom:75%;" />
+	<img src="README.assets/er diagram.png" alt="Entity Relationship diagram" style="zoom:75%;" />
 </p>
 
 ### **Business**
@@ -461,7 +461,9 @@ In addition to testing how the above parameters impacted a model's performance, 
 
 The best performing settings are shown below. I tested four sample sizes - 400, 4000, 20,000 and 28,000. With the test set remaing the same throughout (20,000). 
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-07 at 3.27.04 PM.png" alt="Screen Shot 2020-09-07 at 3.27.04 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/pipeline settings.png" height="500" width="500"/>
+</p>
 
 Generally, differing the parameter settings had very little impact on the accuracy/recall scores. The most important thing was the size of the sample. However, it is important to note the number of features that were created from the (training) samples using different parameter settings. For example, lines 285 and 287 have identical settings apart from the ngram range, but line 287 has almost double the number of features. When the accuracy/recall scores are so similar, the preferred settings would be those that generate the fewest features. For this reason, I chose the following settings for my pipeline.
 
@@ -477,7 +479,9 @@ pipe_params = {
 
 The importance of the sample size is not immeditately apparent in the results above. The graph below shows how the blended accuracy/recall score varies as the sample size was increased. It compares the optimal settings above with the default settings for the count vectorizer and tf-idf. You can see that the optimal settings were only marginally better than the default, and that the scores start to flatline once the sample size goed beyond 20,000.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-07 at 4.25.13 PM.png" alt="Screen Shot 2020-09-07 at 4.25.13 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/sample size results.png" height="500" width="800"/>
+</p>
 
 
 
@@ -489,13 +493,17 @@ First, lets review the performance of using [Truncated SVD](https://scikit-learn
 
 We can see that using dimensionality reduction would not be useful as each component contributes very little to the overall variance. Another reason this approach is not beneficial is that it converts the sparse matrix from TFDIF to a dense matrix (values stored for every cell), which would degrade performance as the sample size increases.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-07 at 4.40.36 PM.png" alt="Screen Shot 2020-09-07 at 4.40.36 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/pca.png" height="500" width="800"/>
+</p>
 
 
 
 Next, lets review the result of altering CountVectorizer's `max_feature` parameter. The graph below shows how the blended accuracy/recall score, and number of features, vary as the number of samples in training set increased. There are two classess being compared, one without `max_features` set and one with `max_features` set to 100,000.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-07 at 4.46.13 PM.png" alt="Screen Shot 2020-09-07 at 4.46.13 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/max features.png" height="500" width="800"/>
+</p>
 
 The results indicate that limiting the number of features did not impact model accuracy. This means that creating new features after a certain point has no/negilibable benefit. As a result, limiting the feature seems to make sense. 
 
@@ -619,7 +627,9 @@ The Logistic Regression and LinearSVC where the best performing models. With bot
 
 I chose the Logistic Regression model from the options I had. This was primarily due the results being slightly better than the LinearSVC, but in truth I could have chosen either. Below are the Precion/Recall and AUC/ROC curves for the Logisitc Regression model.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-08 at 3.24.15 PM.png" alt="Screen Shot 2020-09-08 at 3.24.15 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/roc.png" height="450" width="800"/>
+</p>
 
 The area under the ROC curve tells us how good the model is at predicting positive reviews as positive (class 1) and negaitve reviews as negative (class 0). Here the model is excellent at correctly predicting the right class at any given threshold. Decreasing the threshold increases True Positive Rate (TPR) and False Positive Rate (FPR), while increasing the threshold does the opposite. So, here as the threshold decreases, the TPR increases at a fatser rate than the FPR (until the threshold doesn't matter) this means the model predicting classes with high probability. 
 
@@ -627,7 +637,9 @@ The Precision-Recall curve shows how the Precision and Recall scores change for 
 
 Finally, lets examine the model coefficients to see which features are most important for making predictions. In this instance the model is predicting positive reviews (predictive class), so features with positive coefficients enhance the chance of an observation being part of this class. While the negative coefficients diminish the chance, and enhance preidcitions of a negative review. The graph below shows the features with the largest coefficients (both positive and negative). Intuitatively the graph make sense. For example, it is reasonable to expect to see words with positive coeffcients included in positive reviews. And for negative coefficient words to be appear in negative reviews . So the features which enhance predictions for both clases seem to make intuitive sense. Further, the model is not being dominated by a few keywords with very large coefficients, which could point to a potential issue.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-08 at 3.24.30 PM.png" alt="Screen Shot 2020-09-08 at 3.24.30 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/model coefficients.png" height="500" width="650"/>
+</p>
 
 
 
@@ -635,29 +647,41 @@ Finally, lets examine the model coefficients to see which features are most impo
 
 Now that we have a model that can accuractley predict the sentiment of reviews, lets use it to analyse reviews for a resutant to see what insights we can learn. For this I chose to use the [Pampas steakhouse](https://www.pampasusa.com/) reesturant in Las Vegas. What drew me to Pampas was that despite having won multiple awards (see website for details), it consistently has the the worst star rating of any steak resturant in Las Vegas. This can be seen in the graph below, which shows how Pampas' average star rating compares to ratings for all other steak resturants in Las Vegas. Here the line in red refers to Pampas.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-09 at 3.02.28 PM.png" alt="Screen Shot 2020-09-09 at 3.02.28 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/pampas yearly rating.png" height="500" width="800"/>
+</p>
 
 One reason for this could be a lack of diversifty/spread in the star rating. For example, Pampas could receive predomindately three star reviews which suggests people don't have strong opinions about the dining there. The graph below shows the breakdown of star ratings for Pampas (since 2013) when compared with all other steak resturants. We can see that Pampas does have a good spread of staring ratings, with a much higher proportion of one and two star reviews than other steakhouses. 
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-09 at 3.30.31 PM.png" alt="Screen Shot 2020-09-09 at 3.30.31 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/pampas star breakdown.png" height="400" width="750"/>
+</p>
 
 So, based on the star ratings, we know that people have a mix of views about Pamaps, but what we still don't know is how accurately star ratings reflect reviewer sentiment. For example, could it be that people who review Pampas are quite positive about their experience, and they just happen to give lower ratings. We can answer this question using the model created previously! The graph below shows how sentiment relates to star rating for Pampas.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-09 at 4.06.36 PM.png" alt="Screen Shot 2020-09-09 at 4.06.36 PM" style="zoom:75%;" />
+<p align="center">
+	<img src="README.assets/pampas star sentiment.png" height="500" width="800"/>
+</p>
 
 From the graph we can see that sentiment and star rating are related. For example, the higher the star rating the higher the percentage of positive reviews, and vice versa. As a quick aside, the reason four and five star reviews aren't 100% positive is for two reasons. First, some people seem to be confused by the star scale and use the wrong rating as a result (eg., they use a 1 start instead of a 5 star). The second reason is that people write pros and cons in their review, which my model can not effectively handle. If we now combine sentiment with the breakdown of star ratings for Pampas we get the following.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-09 at 4.16.30 PM.png" alt="Screen Shot 2020-09-09 at 4.16.30 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/pampas star to sentiment.png" height="400" width="750"/>
+</p>
 
 Here we can see that just over half of the reviews had positive sentiment so an average star rating of three seems reasonable. 
 
 So the reason Pampas has a lower star rating is due to a higher proportion of negative (one or two star reviews), lets investigate these reviews to see what common things diners dislike/complain about. Below is a Word Cloud for the most common words/phrases used in the negative reviews in 201/19. This seems fairly generic although we can see that people tend to complain about service and food most often.
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-09 at 4.25.35 PM.png" alt="Screen Shot 2020-09-09 at 4.25.35 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/pampas negative words.png" height="450" width="800"/>
+</p>
 
 Unfortunately, if compare this to the most common words/phrases used in positive reviews (see below) we get a similar result! 
 
-<img src="/Users/user/Google Drive/Learning/GA DSI course/Course/DSI13-lessons/lesson notes/Capstone ReadME.assets/Screen Shot 2020-09-09 at 4.30.20 PM.png" alt="Screen Shot 2020-09-09 at 4.30.20 PM" style="zoom:50%;" />
+<p align="center">
+	<img src="README.assets/pampas positive words.png" height="450" width="800"/>
+</p>
 
 What we can conclude, therefore, is that diners most often write about the service and food in their reviews. However, a limitation in my model (and analysis)  is that we are unable to understand the context whithin which negtive and positive words are used. This would be really helpful for Pampas so they know specifically what things to focus on. On the plus side, what we can say is that focusing on the quality of the service (and the meat) would most likely be beneficial.
 
