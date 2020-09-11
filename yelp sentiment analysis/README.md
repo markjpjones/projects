@@ -218,7 +218,7 @@ Contains the reviews written by users about businesses. Only the reviews that we
     "date": "2016-03-09",
 
     // string, the review itself
-    "text": "Great place to hang out after work: the prices are decent, and the ambience is fun. It's a bit loud, but very lively. The staff is friendly, and the food is good. They have a good selection of drinks.",
+    "text": "Great place to hang out after work: the prices are decent, and the ambience is fun.",
 
     // integer, number of useful votes received
     "useful": 0,
@@ -268,7 +268,7 @@ For each business, a list of user check-ins that have occurred.
     "business_id": "tnhfDv5Il8EaGSXZGiuQGg"
 
     // string which is a comma-separated list of timestamps for each checkin, each with format YYYY-MM-DD HH:MM:SS
-    "date": "2016-04-26 19:49:16, 2016-08-30 18:36:57, 2016-10-15 02:45:18, 2016-11-18 01:54:50, 2017-04-20 18:39:06, 2017-05-03 17:58:02"
+    "date": "2016-04-26 19:49:16, 2016-08-30 18:36:57, 2016-10-15 02:45:18, 2016-11-18 01:54:50"
 }
 ```
 
@@ -405,9 +405,9 @@ The SQL code I wrote for sampling my dataset can be found **here**. **<< NEEDS T
 
 
 
-### Feature Creation << Should this be a seprate main section?
+### Feature Creation (SHOULD THIS BE A SEPERATE SECTION?)
 
-With data preparation completed, I will now discuss the pipeline I created for feature extraction/creation, along with some insights on how I optimised it.
+With data preparation completed, I will now discuss the pipeline I created for feature extraction/creation, along with some insights on how I optimised it.
 
 
 
@@ -470,7 +470,7 @@ pipe_params = {
     'pre__stopw': stopwords.words('english'), 
     'cv__min_df': 5,
     'cv__binary': True,
-		'cv__ngram_range': (1,2),
+    'cv__ngram_range': (1,2),
     'tfidf__use_idf': True
 }
 ```
@@ -509,7 +509,7 @@ pipe_params = {
     'cv__min_df': 5,
     'cv__binary': True,
     'cv__ngram_range': (1,2),
-  	'cv__max_features': 100000
+    'cv__max_features': 100000
     'tfidf__use_idf': True
 }
 ```
@@ -583,7 +583,7 @@ Below are the classification reports for the three models tested using the unsig
 
 ```
 NB Bernoulli
-							precision    recall  f1-score   support
+	      precision    recall  f1-score   support
 
            0       0.94      0.82      0.87    100000
            1       0.84      0.94      0.89    100000
@@ -594,7 +594,7 @@ weighted avg       0.89      0.88      0.88    200000
 
 
 Logistic Regression
-							precision    recall  f1-score   support
+	      precision    recall  f1-score   support
 
            0       0.95      0.95      0.95    100000
            1       0.95      0.95      0.95    100000
@@ -605,7 +605,7 @@ weighted avg       0.95      0.95      0.95    200000
 
 
 LinearSVC
-							precision    recall  f1-score   support
+	      precision    recall  f1-score   support
 
            0       0.95      0.95      0.95    100000
            1       0.95      0.95      0.95    100000
