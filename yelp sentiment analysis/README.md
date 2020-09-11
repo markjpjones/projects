@@ -34,7 +34,7 @@ As mentioned previously, I chose to use review data from [Yelp](https://www.yelp
 - **1,320,761** tips 
 - **1,968,703** users
 
-The business contained in the datset reside in **10** metropolitan areas in North America.
+The businesses contained in the datset reside in **10** metropolitan areas in North America.
 
 The data is stored as five JSON files that provide details of businesses, users, reviews, tips and check-ins. The following diagram  shows how the different sets of data are related, with a description of each provided afterwards. 
 
