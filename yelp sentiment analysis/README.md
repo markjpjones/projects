@@ -300,24 +300,7 @@ Excluding non-resturants businessses from my dataset caused the number of busine
 
 While the amount of data being excluded may seem like a lot, it is completely justtifed in order to ensure I can provide relevant insights to restaurants. If I did not exclude non-restaurant businesses then the accuraccy of my model (predictions) would suffer as it's ability to predict setiment of resturants reviews would be hampered/diluted by the feedback from all other business reviews.
 
-
-
-The code used for this analysis can be found **here** < **NEED TO ADD THIS LINK** (remove code below and put in file)
-
-```sql
--- create filtered business table to only include restaurants
-create table yelp_business_filtered as 
-select *
-from yelp_business
-where categories ilike '%restaurant%';
-commit;
-
--- filter reviews to only include restaurant reviews
-delete
-from yelp_reviews_filtered
-where business_id not in (select business_id from yelp_business_filtered);
-commit;
-```
+The code used for this analysis can be found <a href="sql/restaurant reviews.sql">here</a>.
 
 
 
@@ -333,29 +316,7 @@ Looking at the number of words in a reivew makes it hard to pinpoint any potenti
 
 Next, I looked for reviews that did not contain alphabetical charcters. The result was 650 reviews, which were written in Chinese/Japanese. These reviews were also excluded.
 
-
-
-Link to code can be found **here**. **<< NEED TO ADD THIS** (add code to seperate file and remove from document)
-
-```sql
--- set review length attribute
-update yelp_reviews_filtered
-set review_length = array_length(regexp_split_to_array(trim("text"), E'\\s+'), 1);
-commit;
-
-
--- remove reviews whose length is less than five
-delete
-from yelp_reviews_filtered
-where length(text) < 5;
-commit;
-
--- delete reviews that do not contain alphabetical characters
-delete 
-from yelp_reviews_filtered
-where text !~* '[A-Za-z]\w+';
-commit;
-```
+Link to code can be found <a href="sql/filter short reviews.sql">here</a>.
 
 
 
@@ -363,13 +324,7 @@ commit;
 
 Next, I removed any mention of the star rating from the review text. This is important, as leaving any mention of a rating in the text would bias the model (as the target value will be in the predictor!). 
 
-Code for this can be found **here**. **<< NEED TO ADD THIS** (remove code from readme.)
-
-```sql
-update yelp_reviews_filtered
-set text = replace(lower(text), 'one star', '');
-commit;
-```
+Code for this can be found <a href="sql/remove star ratings.sql">here</a>.
 
 
 
