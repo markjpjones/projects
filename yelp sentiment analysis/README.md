@@ -3,7 +3,7 @@
 
 ## Abstract (tl;dr:)
 
-Five-week final project for my General Assmebly immersive programmed. Project involved using the [Yelp dataset](https://www.yelp.com/dataset/documentation/main) to classify restaurant reviews as positive or negative based on their content. I used a number of different natural language processing (NLP) techniques including, stemming, count vectorising and term frequency - indirect document frequency (TFIDF), along with Logistic Regression modelling. The result was an extremely accurate model (accuracy and recall scores of 0.95) which I could then use to analyse reviews from individual restaurants to understand what aspects matter most to people. 
+Five-week final project for my General Assmebly immersive programme. Project involved using the [Yelp dataset](https://www.yelp.com/dataset/documentation/main) to classify restaurant reviews as positive or negative based on their content. I used a number of different natural language processing (NLP) techniques including, stemming, count vectorising and term frequency - indirect document frequency (TFIDF), along with Logistic Regression modelling. The result was an extremely accurate model (accuracy and recall scores of 0.95) which I could then use to analyse reviews from individual restaurants to understand what aspects matter most to people. 
 
 The code for this project can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb).
 
@@ -19,7 +19,7 @@ This project was undertaken as part of my study for the General Assembly Data Sc
 
 Resturants predominately receive feedback via online reviews posted on Google, Yelp and other portals. While it is easy for resturants to see thier average star rating (and a breakdown of how this reating was calculated), it is impossible for them to understand the reason for ratings (i.e., what people liked/disliked about their dining experience). The only way they can do this currently is by manuallly reading reviews posted by customers, which is both time-consuming and impractical if the number of reviews is large.  Owners could alleviate this problem by reading only a sample of reviews but the danger here is that they miss important feedback. 
 
-With this in mind, I wanted to develop a to make it easy for resturant owners to analyse customer reviews, allowing them to understand how sentiment relates to the star ratings, and what aspects customers liked/disliked about their dining experience. 
+With this in mind, I wanted to develop a model that would make it easy for resturant owners to analyse customer reviews. Specifically, allowing them to understand how sentiment relates to the star ratings, and what aspects customers liked/disliked about their dining experience. 
 
 For this project, I chose to the use the [Yelp Dataset](https://www.yelp.com/dataset). This dataset cotains 8M+ reviews and I provide a comprehensive overview of it in the next section.
 
@@ -27,14 +27,14 @@ For this project, I chose to the use the [Yelp Dataset](https://www.yelp.com/dat
 
 ## Dataset Overview
 
-As mentioned previously, I chose to use review data from [Yelp](https://www.yelp.com/dataset) for this project and included the following pieces of information.
+As mentioned previously, I chose to use review data from [Yelp](https://www.yelp.com/dataset) for this project. This data set contained the following pieces of information:
 
 - **8,021,122** reviews
 - **209,393** businesses
 - **1,320,761** tips 
 - **1,968,703** users
 
-The businesses contained in the datset reside in **10** metropolitan areas in North America.
+The businesses contained in the data set reside in **10** metropolitan areas in North America.
 
 The data is stored as five JSON files that provide details of businesses, users, reviews, tips and check-ins. The following diagram  shows how the different sets of data are related, with a description of each provided afterwards. 
 
@@ -284,15 +284,15 @@ When starting this project, the biggest challenge I faced was the size of the js
 
 ### Data Loading & Exploration
 
-Given the dataset was too large to work with directly in Pandas, I chose to upload it to a Postgres database to work with. I did this by first splitting the json files into smaller junks and then iteratively loading these smaller chunks into a Pandas Dataframe, which I could then write to Postgres. I created one table in Postgres for each json file (business, reviews, tips, check-ins, users). [This article](https://blog.softhints.com/python-read-huge-json-file-pandas/) provides an excellent overview on the approach I took for chunking and loading the JSON files. The code I created for loading data into a Dataframe and then out to Postgres can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb#Data-Loading-(JSONs)-).
+Given the data set was too large to work with directly in Pandas, I chose to upload it to a Postgres database to work with. I did this by first splitting the json files into smaller junks and then iteratively loading these smaller chunks into a Pandas Dataframe, which I could then write to Postgres. I created one table in Postgres for each json file (business, reviews, tips, check-ins, users). [This article](https://blog.softhints.com/python-read-huge-json-file-pandas/) provides an excellent overview of the approach I took for chunking and loading the JSON files. The code I created for loading data into a Dataframe and then out to Postgres can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb#Data-Loading-(JSONs)-).
 
-As my goal for the project was to help restaurants better understand their reviews I chose to focus on using business and review information exclusively. During the data exploration my aim was to ensure that I had quality data to use for modelling. I split my exploration into five stages. Each of which I will now describe.
+During the data exploration my aim was to ensure that I had quality data to use for modelling. I split my exploration into five stages. Each of which I will now describe.
 
 
 
 #### Filter out reviews not linked to restaurants
 
-As I am only interested in resturant reviews it makes sense to exclude reviews for businesses that are not restaurants. Yelp allows businesses to be categorised quite broadly (and businesses are allowed to have more than category). In this regard the categories are more like tags. Yelp has 1,337 keywords for descrbing/categorizing businesses. The most popular tags are shown below.
+As my goal was to help restaurants better understand their reviews it makes sense to exclude reviews for businesses that are not restaurants. Yelp allows businesses to be categorised quite broadly (and businesses are allowed to have more than category). In this regard the categories are more like tags. Yelp has 1,337 keywords for descrbing/categorising businesses. The most popular tags are shown below.
 
 <p align="center">
 	<img src="README.assets/business tags.png" height="450" width="200"/>
@@ -300,7 +300,7 @@ As I am only interested in resturant reviews it makes sense to exclude reviews f
 
 Excluding non-resturants businessses from my dataset caused the number of businesses to drop from ~209K to ~63K (a 60% drop), and a subsequent ~38% reduction in the with the number of reivews being considered. 
 
-While the amount of data being excluded may seem like a lot, it is completely justtifed in order to ensure I can provide relevant insights to restaurants. If I did not exclude non-restaurant businesses then the accuraccy of my model (predictions) would suffer as it's ability to predict setiment of resturants reviews would be hampered/diluted by the feedback from all other business reviews.
+While the amount of data being excluded may seem like a lot, it is completely justified to ensure relevant insights can be provided to restaurants. If I did not exclude non-restaurant businesses then the accuraccy of my model (predictions) would suffer as it's ability to predict setiment of resturants reviews would be hampered/diluted by the feedback from all other business reviews.
 
 The code used for this analysis can be found <a href="sql/restaurant reviews.sql">here</a>.
 
@@ -308,9 +308,9 @@ The code used for this analysis can be found <a href="sql/restaurant reviews.sql
 
 #### Filter out short reviews or reviews without alphabetical characters
 
-With business (and review) data now filtered to only those for resturants. I next focussed on ensuring that I only kept reviews that would provide useful insights for restaurants relating to customer sentiment and feedback. My first step was to exlude reviews that were extremely short or did not conatin alphebetcical characters. My rationale for doing this was that in both cases the reviews would not be provide any insights as to why customers rated resaurants in certain ways. 
+With business (and review) data now filtered to only those for resturants. I next focussed on only keeping reviews that would provide useful insights for restaurants relating to customer sentiment and feedback. My first step was to exclude reviews that were extremely short or did not conatin alphebetcical characters. My rationale for doing this was that in both cases the reviews would not be provide any insights as to why customers rated resaurants in certain ways. 
 
-Looking at the number of words in a reivew makes it hard to pinpoint any potential issues as a one or two word review is perfectly legitimate, and would provide feedback on sentiment. Therefore, a better approach is to look at the number of characters. When filtering reviews to look at only those with less tahn 5 characters we get 68 results. A summary of the most popular is shown below. As we can see these reviews would not be helpful when predicting sentiment. As a result, I will remove them.
+Looking at the number of words in a reivew makes it hard to pinpoint any potential issues as a one or two word review are perfectly legitimate, and would provide feedback on sentiment. Therefore, a better approach is to look at the number of characters. When filtering reviews to look at only those with less tahn 5 characters we get 68 results. A summary of the most popular is shown below. As we can see these reviews would not be helpful when predicting sentiment. As a result, I removed them.
 
 <p align="center">
 	<img src="README.assets/invalid characters.png" height="350" width="200"/>
@@ -340,7 +340,7 @@ I used the [langdetect](https://pypi.org/project/langdetect/) library to predict
 	<img src="README.assets/english reviews.png" height="75" width="200"/>
 </p>
 
-In order to have confidence that these classifications were correct it was necessary to also review the probabilties related to the predictions. High probailitiles would mean that langdetect was extremely confident in it's lagnuage predictions. Below is a breakdown of the probabilites where only one language detected (which was the case for 99% of the reviews). We can see that in almost every case langdetect had a high degree of confidence as to the language.
+In order to have confidence that these classifications were correct it was necessary to also review the probabilities related to the predictions. High probabilities would mean that langdetect was extremely confident in it's lagnuage predictions. Below is a breakdown of the probabilities where only one language detected (which was the case for 99% of the reviews). We can see that in almost every case langdetect had a high degree of confidence as to the language.
 
 <p align="center">
 	<img src="README.assets/language confidence.png" height="300" width="200"/>
@@ -350,7 +350,7 @@ In the remaining 1% of cases, multiple languages were detected. Most were still 
 
 With the language identified, I removed any that were not written in English.
 
-The code I used for detecting the language for reviews (and uplaoding the result to Postgres) can be found **here**. **<< NEEDS TO BE ADDED**
+The code I used for detecting the language for reviews (and uploading the result to Postgres) can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb#Check-the-language-of-reviews).
 
 
 
@@ -362,7 +362,8 @@ The SQL code I wrote for sampling my dataset can be found [here](https://nbviewe
 
 
 
-### Feature Creation (SHOULD THIS BE A SEPERATE SECTION?)
+
+### Feature Creation
 
 With data preparation completed, I will now discuss the pipeline I created for feature extraction/creation, along with some insights on how I optimised it.
 
@@ -370,13 +371,13 @@ With data preparation completed, I will now discuss the pipeline I created for f
 
 #### Pipeline Creation
 
-To create the features necessary for modelling I constructed a pipeline consiting of three stages: 
+I constructed a pipeline consisting of the following three stages to create the features necessary for modelling. 
 
 1. A custom stage for tokenizing, stop word removal, case correction and stemming
 2. A count vectorizer for generating a sparse matrix of features
 3. A tf-idf transformer for term weighting.
 
-I chose to use stemming as I wanted to ensure variations of the same/similar words would be grouped together by their root. For example, the three words - agreed, agreeing and agreeable have the same root word agree. A search involving any of these words should treat them as the same word which is the root word. I also considered extending this idea to use lemmatization instead. However, I did not explore this at the time but instead left it with a view to returning to explore it at a later date.
+I chose to use stemming as I wanted to ensure variations of the same/similar words would be grouped together by their root. For example, the three words - agreed, agreeing and agreeable have the same root word agree. A search involving any of these words should treat them as the same word which is the root word. I also considered extending this idea to use lemmatization instead. However, I did not explore this at the time but instead left it with a view to returning to it at a later date.
 
 The code for the first stage of my pipeline can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb#2.-Setup-Pipeline). 
 
@@ -444,7 +445,7 @@ The importance of the sample size is not immeditately apparent in the results ab
 
 ##### Is dimensionality reduction worthwhile? - Sparse Matix vs. Truncated SVD vs. Max Features
 
-With my pipeline settings defined, the next step was to see if reducing the number of features created was wortwhile. I tested two approaches for this. First, I looked to see what impact creating a reduced set of principal compoents had. Second, I assessed how the `max_features` parameter for the Count Vectorizer altered the accuracy/recall scores.
+With my pipeline settings defined, the next step was to see if reducing the number of features created was wortwhile. I tested two approaches for this. First, I looked to see what impact creating a reduced set of principal components had. Second, I assessed how the `max_features` parameter for the Count Vectorizer altered the accuracy/recall scores.
 
 First, lets review the performance of using [Truncated SVD](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html) to reduce the dimensionality. The graph below shows how much of the variance can be explained with 3000 principal components.
 
@@ -456,7 +457,7 @@ We can see that using dimensionality reduction would not be useful as each compo
 
 
 
-Next, lets review the result of altering CountVectorizer's `max_feature` parameter. The graph below shows how the blended accuracy/recall score, and number of features, vary as the number of samples in training set increased. There are two classess being compared, one without `max_features` set and one with `max_features` set to 100,000.
+Next, lets review the result of altering CountVectorizer's `max_feature` parameter. The graph below shows how the blended accuracy/recall score, and number of features, vary as the number of samples in the training set increased. There are two classess being compared, one without `max_features` set and one with `max_features` set to 100,000.
 
 <p align="center">
 	<img src="README.assets/max features.png" height="500" width="800"/>
@@ -483,7 +484,7 @@ pipe_params = {
 
 ## Modelling
 
-At this point it it worth revisiting the objective of the project. I want to predict the sentiment (ie., positive or negative) of resturant reviews and understand what aspects customers liked/disliked about their dining experience. We can define this (in terms of modelling) as a binary classifcation problem, where four and five star reviews can be defined as having 'positive' sentiment and one and two star reviews as having 'negative' sentiment. Aspects of the dining experience (both good and bad) that ehance sentiment can be determined by looking at the coeffcients of the model. When training a model positive and negative reviews will be sampled equally to ensure the model is equally good and predicting both classes.
+At this point it it worth revisiting the objective of the project. I want to predict the sentiment (ie., positive or negative) of resturant reviews and understand what aspects customers liked/disliked about their dining experience. We can define this (in terms of modelling) as a binary classifcation problem, where four and five star reviews can be defined as having 'positive' sentiment and one and two star reviews as having 'negative' sentiment. Aspects of the dining experience (both good and bad) that enhance sentiment can be determined by looking at the coeffcients of the model. When training a model, positive and negative reviews will be sampled equally to ensure the model is equally good and predicting both classes.
 
 
 
@@ -580,7 +581,7 @@ LinearSVC
 weighted avg       0.95      0.95      0.95    200000
 ```
 
-The Logistic Regression and LinearSVC where the best performing models. With both acheving near perfect accuracy and recall scores for both classes. This means the models were able to accurately predict whether a review was positive or negative. These scores should be treated with suspicion as they seem almost too good. To give ourselves a degree of confidence in these results we should sense check the training and test sets, as well as understand how the models are making predictions. First up lets check the training and test sets. One reason why the scores are so good could be that the training and test sets overlap. However, upon checking I found that the sets did not overlap and that both contained only unqiue reviews (no repetition). This seems to suggest that there are no issues with the sampled sets, so we can now check how the models are making predictions to see if the results were purely down to luck. This would happen if the probability of being in either class were quite similar (ie., close to 0.5). In ~88% of observations the models predicted the class with a probability of at least 85%. This means the models are confident in the predicitions they are making, and (more importantly) that the scores above were not due to chance. Given that everything seems to be fine, lets move on to model selection and behaviour interpretation.
+The Logistic Regression and LinearSVC where the best performing models. With both achieving near perfect accuracy and recall scores for both classes. This means the models were able to accurately predict whether a review was positive or negative. These scores should be treated with suspicion as they seem almost too good. To give ourselves a degree of confidence in these results we should sense check the training and test sets, as well as understand how the models are making predictions. First up lets check the training and test sets. One reason why the scores are so good could be that the training and test sets overlap. However, upon checking I found that the sets did not overlap and that both contained only unqiue reviews (no repetition). This seems to suggest that there are no issues with the sampled sets, so we can now check how the models are making predictions to see if the results were purely down to luck. This would happen if the probability of being in either class were quite similar (ie., close to 0.5). In ~88% of observations the models predicted the class with a probability of at least 85%. This means the models are confident in the predicitions they are making, and (more importantly) that the scores above were not due to chance. Given that everything seems to be fine, lets move on to model selection and behaviour interpretation.
 
 I chose the Logistic Regression model from the options I had. This was primarily due the results being slightly better than the LinearSVC, but in truth I could have chosen either. Below are the Precion/Recall and AUC/ROC curves for the Logisitc Regression model.
 
@@ -588,11 +589,11 @@ I chose the Logistic Regression model from the options I had. This was primarily
 	<img src="README.assets/roc.png" height="450" width="800"/>
 </p>
 
-The area under the ROC curve tells us how good the model is at predicting positive reviews as positive (class 1) and negaitve reviews as negative (class 0). Here the model is excellent at correctly predicting the right class at any given threshold. Decreasing the threshold increases True Positive Rate (TPR) and False Positive Rate (FPR), while increasing the threshold does the opposite. So, here as the threshold decreases, the TPR increases at a fatser rate than the FPR (until the threshold doesn't matter) this means the model predicting classes with high probability. 
+The area under the ROC curve tells us how good the model is at predicting positive reviews as positive (class 1) and negaitve reviews as negative (class 0). Here the model is excellent at correctly predicting the right class at any given threshold. Decreasing the threshold increases True Positive Rate (TPR) and False Positive Rate (FPR), while increasing the threshold does the opposite. So, here as the threshold decreases, the TPR increases at a faster rate than the FPR (until the threshold doesn't matter) this means the model predicting classes with high probability. 
 
-The Precision-Recall curve shows how the Precision and Recall scores change for each class as the threshold changes. Here, as the threshold decreases the Recall increases. However, as the predicted probabilities for the classes are so high, the threshold does not impact the precision scores until the point at which the the threshold is almost 0. At which point only perfect Ture Negative predictions will remain in place, everything else will move over the positive class.
+The Precision-Recall curve shows how the Precision and Recall scores change for each class as the threshold changes. Here, as the threshold decreases the Recall increases. However, as the predicted probabilities for the classes are so high, the threshold does not impact the precision scores until the point at which the the threshold is almost 0. At which point only perfect True Negative predictions will remain in place, everything else will move over the positive class.
 
-Finally, lets examine the model coefficients to see which features are most important for making predictions. In this instance the model is predicting positive reviews (predictive class), so features with positive coefficients enhance the chance of an observation being part of this class. While the negative coefficients diminish the chance, and enhance preidcitions of a negative review. The graph below shows the features with the largest coefficients (both positive and negative). Intuitatively the graph make sense. For example, it is reasonable to expect to see words with positive coeffcients included in positive reviews. And for negative coefficient words to be appear in negative reviews . So the features which enhance predictions for both clases seem to make intuitive sense. Further, the model is not being dominated by a few keywords with very large coefficients, which could point to a potential issue.
+Finally, lets examine the model coefficients to see which features are most important for making predictions. In this instance, the model is predicting positive reviews (predictive class), so features with positive coefficients enhance the chance of an observation being part of this class. While the negative coefficients diminish the chance, and enhance predicitions of a negative review instead. The graph below shows the features with the largest coefficients (both positive and negative). Intuitatively the graph make sense. For example, it is reasonable to expect to see words with positive coeffcients included in positive reviews. And for negative coefficient words to be appear in negative reviews. So the features which enhance predictions for both clases seem to make intuitive sense. Further, the model is not being dominated by a few keywords with very large coefficients, which could point to a potential issue.
 
 <p align="center">
 	<img src="README.assets/model coefficients.png" height="500" width="650"/>
@@ -602,13 +603,13 @@ Finally, lets examine the model coefficients to see which features are most impo
 
 ## Model Application
 
-Now that we have a model that can accuractley predict the sentiment of reviews, lets use it to analyse reviews for a resutant to see what insights we can learn. For this I chose to use the [Pampas steakhouse](https://www.pampasusa.com/) reesturant in Las Vegas. What drew me to Pampas was that despite having won multiple awards (see website for details), it consistently has the the worst star rating of any steak resturant in Las Vegas. This can be seen in the graph below, which shows how Pampas' average star rating compares to ratings for all other steak resturants in Las Vegas. Here the line in red refers to Pampas.
+Now that we have a model that can accuractley predict the sentiment of reviews, lets use it to analyse reviews for a restaurant to see what insights we can learn. For this I chose to use the [Pampas steakhouse](https://www.pampasusa.com/) reesturant in Las Vegas. What drew me to Pampas was that despite having won multiple awards (see website for details), it consistently has the the worst star rating of any steak resturant in Las Vegas. This can be seen in the graph below, which shows how Pampas' average star rating compares to ratings for all other steak resturants in Las Vegas. Here the line in red refers to Pampas.
 
 <p align="center">
 	<img src="README.assets/pampas yearly rating.png" height="500" width="800"/>
 </p>
 
-One reason for this could be a lack of diversifty/spread in the star rating. For example, Pampas could receive predomindately three star reviews which suggests people don't have strong opinions about the dining there. The graph below shows the breakdown of star ratings for Pampas (since 2013) when compared with all other steak resturants. We can see that Pampas does have a good spread of staring ratings, with a much higher proportion of one and two star reviews than other steakhouses. 
+One reason for this could be a lack of diversifty/spread in the star rating. For example, Pampas could receive predomindately three star reviews which suggests people don't have strong opinions about the dining there. The graph below shows the breakdown of star ratings for Pampas (since 2013) when compared with all other steak resturants. We can see that Pampas does have a good spread of star ratings, with a much higher proportion of one and two star reviews than other steakhouses. 
 
 <p align="center">
 	<img src="README.assets/pampas star breakdown.png" height="400" width="750"/>
@@ -620,7 +621,7 @@ So, based on the star ratings, we know that people have a mix of views about Pam
 	<img src="README.assets/pampas star sentiment.png" height="500" width="800"/>
 </p>
 
-From the graph we can see that sentiment and star rating are related. For example, the higher the star rating the higher the percentage of positive reviews, and vice versa. As a quick aside, the reason four and five star reviews aren't 100% positive is for two reasons. First, some people seem to be confused by the star scale and use the wrong rating as a result (eg., they use a 1 start instead of a 5 star). The second reason is that people write pros and cons in their review, which my model can not effectively handle. If we now combine sentiment with the breakdown of star ratings for Pampas we get the following.
+From the graph we can see that sentiment and star rating are related. For example, the higher the star rating the higher the percentage of positive reviews, and vice versa. As a quick aside, the reason four and five star reviews aren't 100% positive are for two reasons. First, some people seem to be confused by the star scale and use the wrong rating as a result (eg., they use a 1 start instead of a 5 star). The second reason is that people write pros and cons in their review, which my model can not effectively handle. If we now combine sentiment with the breakdown of star ratings for Pampas we get the following.
 
 <p align="center">
 	<img src="README.assets/pampas star to sentiment.png" height="400" width="750"/>
@@ -628,13 +629,13 @@ From the graph we can see that sentiment and star rating are related. For exampl
 
 Here we can see that just over half of the reviews had positive sentiment so an average star rating of three seems reasonable. 
 
-So the reason Pampas has a lower star rating is due to a higher proportion of negative (one or two star reviews), lets investigate these reviews to see what common things diners dislike/complain about. Below is a Word Cloud for the most common words/phrases used in the negative reviews in 201/19. This seems fairly generic although we can see that people tend to complain about service and food most often.
+So the reason Pampas has a lower star rating is due to a higher proportion of negative (one or two star reviews), lets investigate these reviews to see what common things diners dislike/complain about. Below is a Word Cloud for the most common words/phrases used in the negative reviews in 2018/19. This seems fairly generic although we can see that people tend to complain about service and food most often.
 
 <p align="center">
 	<img src="README.assets/pampas negative words.png" height="450" width="800"/>
 </p>
 
-Unfortunately, if compare this to the most common words/phrases used in positive reviews (see below) we get a similar result! 
+Unfortunately, if we compare this to the most common words/phrases used in positive reviews (see below) we get a similar result! 
 
 <p align="center">
 	<img src="README.assets/pampas positive words.png" height="450" width="800"/>
@@ -646,7 +647,7 @@ What we can conclude, therefore, is that diners most often write about the servi
 
 ## Conclusions & Next Steps
 
-Originally, I set out to predict the sentiment (ie., positive or negative) of resturant reviews and understand what aspects customers liked/disliked about their dining experience. My approach acoomplished this as I have a model that can accurately predict sentiment and identify which topics are most often mentioned in postiive and negative reviews. However, one thing my approach lacks is the ability to undersatnd the context within which words are used, which would give resturants a better idea of specific things they should potentially focus on.
+Originally, I set out to predict the sentiment (ie., positive or negative) of resturant reviews and understand what aspects customers liked/disliked about their dining experience. I accomplished this as I have a model that can accurately predict review sentiment and identify which topics are most often mentioned in postiive and negative reviews. However, one thing my approach lacks is the ability to understand the context within which words are used, which would give resturants a better idea of specific things they should potentially focus on.
 
 In terms of next steps/improvements, I think there are a few things that could be improved:
 
