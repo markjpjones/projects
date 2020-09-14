@@ -1,7 +1,7 @@
 
-Project undertaken as part of my data science immersive course at General Assemlbly. The overview/business case for the project is outlined below.
+Project undertaken as part of my data science immersive course at General Assembly. The overview/business case for the project is outlined below.
 
-A link to the notebook for the project can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/indeed%20salary%20analysis/starter_code.ipynb).
+A link to the notebook for the project can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/indeed%20salary%20analysis/indeed%20code.ipynb).
 
 --- 
 
