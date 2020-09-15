@@ -1,6 +1,6 @@
-# DS projects
+# Data Science projects
 
-Repo for my data science projects
+Repo for my data science projects (and learning)...
 
 ## Projects
 
