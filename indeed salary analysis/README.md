@@ -20,17 +20,10 @@ Hint: Aggregators like [Indeed.com](https://www.indeed.com) regularly pool job p
 
 ---
 
-## Directions
-
-In this project you will be leveraging a variety of skills. The first will be to use the web-scraping and/or API techniques you've learned to collect data on data jobs from Indeed.com or another aggregator. Once you have collected and cleaned the data, you will use it to answer the two questions described above.
-
 ### Factors that impact salary
 
 To predict salary the most appropriate approach would be a regression model.
 Here instead we just want to estimate which factors (like location, job title, job level, industry sector) lead to high or low salary and work with a classification model. To do so, split the salary into two groups of high and low salary, for example by choosing the median salary as a threshold (in principle you could choose any single or multiple splitting points).
-
-Use all the skills you have learned so far to build a predictive model.
-Whatever you decide to use, the most important thing is to justify your choices and interpret your results. *Communication of your process is key.* Note that most listings **DO NOT** come with salary information. You'll need to be able to extrapolate or predict the expected salaries for these listings.
 
 
 #### Model evaluation:
