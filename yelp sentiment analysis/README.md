@@ -1,4 +1,4 @@
-# Classifying the sentinment of Yelp resturant reviews
+# Predicting the sentinment of Yelp restaurant reviews
 
 
 ## Abstract (tl;dr:)
