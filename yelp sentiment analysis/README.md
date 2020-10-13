@@ -1,4 +1,4 @@
-# Predicting the Sentiment of Yelp reviews
+# Predicting the sentinment of Yelp restaurant reviews
 
 
 ## Abstract (tl;dr:)
