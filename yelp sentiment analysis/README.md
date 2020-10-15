@@ -497,7 +497,7 @@ The models were trained on set of 400K random samples (1,2,4,5 star reviews) and
 ```python
 # models to test using gridsearch.
 models = {
-    'NB Bernoulli': (BernoulliNB(), {}),
+    'Naive Bayes': (MultinomialNB(), {}),
 
     'Logistic Regression': (LogisticRegression(solver='liblinear'), {'C': np.linspace(3, 6, 15),
                                                                      'penalty': ['l2']}), # 'l1'
@@ -548,7 +548,7 @@ gs_params = {
 Below are the classification reports for the three models tested using the unsighted test set. Here class 0 refers to negative reviews and class 1 refers to positive reviews.
 
 ```
-NB Bernoulli
+Naive Bayes
 	      precision    recall  f1-score   support
 
            0       0.94      0.82      0.87    100000
