@@ -497,7 +497,7 @@ The models were trained on set of 400K random samples (1,2,4,5 star reviews) and
 ```python
 # models to test using gridsearch.
 models = {
-    'Naive Bayes': (MultinomialNB(), {}),
+    'Naive Bayes': (BernoulliNB(), {}),
 
     'Logistic Regression': (LogisticRegression(solver='liblinear'), {'C': np.linspace(3, 6, 15),
                                                                      'penalty': ['l2']}), # 'l1'
