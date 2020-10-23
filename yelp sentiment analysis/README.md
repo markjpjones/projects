@@ -3,7 +3,7 @@
 
 ## Abstract (tl;dr:)
 
-Five-week final project for my General Assmebly immersive programme. Project involved using the [Yelp dataset](https://www.yelp.com/dataset/documentation/main) to classify restaurant reviews as positive or negative based on their content. I used a number of different natural language processing (NLP) techniques including, stemming, count vectorising and term frequency - indirect document frequency (TFIDF), along with Logistic Regression modelling. The result was an extremely accurate model (accuracy and recall scores of 0.95) which I could then use to analyse reviews from individual restaurants to understand what aspects matter most to people. 
+Five-week final project for my General Assembly immersive programme. Project involved using the [Yelp dataset](https://www.yelp.com/dataset/documentation/main) to classify restaurant reviews as positive or negative based on their content. I used a number of different natural language processing (NLP) techniques including, stemming, count vectorising and term frequency - indirect document frequency (TFIDF), along with Logistic Regression modelling. The result was an extremely accurate model (accuracy and recall scores of 0.95) which I could then use to analyse reviews from individual restaurants to understand what aspects matter most to people. 
 
 The code for this project can be found [here](https://nbviewer.jupyter.org/github/markjpjones/projects/blob/master/yelp%20sentiment%20analysis/Yelp%20sentiment%20code.ipynb).
 
